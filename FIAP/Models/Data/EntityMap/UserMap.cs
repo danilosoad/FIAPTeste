@@ -12,7 +12,7 @@ namespace FIAP.Models.Data.EntityMap
         public void Configure(EntityTypeBuilder<UserModel> builder)
         {
             builder.HasKey(x => x.ID);
-            builder.Property(e => e.ID).UseIdentityColumn();
+            //builder.Property(e => e.ID).UseIdentityColumn();
         }
     }
 }

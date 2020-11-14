@@ -10,6 +10,7 @@ namespace FIAP.Models.Repositories
         void Add(UserModel user);
         void Delete(UserModel user);
         IEnumerable<UserModel> GetUsers();
+        IEnumerable<UserModel> GetUsersByEmail(string email);
         UserModel GetUsersById(int id);
     }
 }

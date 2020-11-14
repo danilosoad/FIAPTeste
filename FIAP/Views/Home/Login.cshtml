@@ -1,0 +1,37 @@
+﻿<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="~/css/login.css" rel="stylesheet" id="login-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <!-- Tabs Titles -->
+        <!-- Icon -->
+        <div class="fadeIn first">
+            @*<svg width="1em" height="1em" id="icon" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+            </svg>*@
+            <br />
+        </div>
+
+        <!-- Login Form -->
+        <form>
+            <input type="text" id="login" class="fadeIn second" name="username" placeholder="Usuario">
+            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Senha">
+            @*<input type="submit" class="fadeIn fourth " value="Log In">*@
+            <br />
+            <button asp-controller="Login" asp-action="Login" type="submit" style="margin-top:10px;" class="btn btn-primary">Enviar</button>
+            <br />
+            <br />
+        </form>
+
+        <!-- Remind Passowrd -->
+        @*<div id="formFooter">
+            <a class="underlineHover" href="#">Forgot Password?</a>
+        </div>*@
+
+    </div>
+</div>

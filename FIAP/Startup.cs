@@ -1,6 +1,8 @@
 using FIAP.Models.Data;
 using FIAP.Models.Data.UnityOfWork;
+using FIAP.Models.Filters;
 using FIAP.Models.Repositories;
+using FIAP.Models.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,6 +32,9 @@ namespace FIAP
             services.AddDbContext<DataContext>(options => options.UseSqlServer("workstation id=danilodev.mssql.somee.com;packet size=4096;user id=danilosoad_SQLLogin_1;pwd=h743c16619;data source=danilodev.mssql.somee.com;persist security info=False;initial catalog=danilodev"));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnityOfWork, UnityOfWork>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<PasswordService>();
+            services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
             services.AddControllersWithViews();
         }
 
@@ -52,6 +57,7 @@ namespace FIAP
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

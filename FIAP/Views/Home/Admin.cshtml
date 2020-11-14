@@ -1,0 +1,109 @@
+﻿@model X.PagedList.IPagedList<UserModel>
+@using X.PagedList.Mvc.Core;
+
+@{var filtro = ViewBag.Keyword; }
+
+<h1>Area Administrativa</h1>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Efetuar Lance</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span id="modalMsg"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-modal" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form>
+    <div class="col-4">
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" class="form-control" id="email" aria-describedby="valorhelp" name="keyword" placeholder="">
+        </div>
+        <label for="qtdRegistros">Quantidade de Registros</label>
+        <select id="qtdRegistros" name="qtdRegistros" class="form-control">
+            <option selected="selected" value="10">10</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+        </select>
+        <br />
+        <button asp-controller="Home" asp-action="Admin" type="submit" class="btn btn-primary">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
+                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
+            </svg>
+        </button>
+    </div>
+</form>
+<br />
+<hr />
+<div class="col">
+    <table class="table table-bordered table-striped table-hover">
+        <tr class="text-center">
+            <th>
+                ID
+            </th>
+            <th>
+                NOME
+            </th>
+            <th>EMAIL</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.NOME)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EMAIL)
+                </td>
+                <td class="text-center">
+                    <button class="btn btn-sm btn-danger" data-toggle="modal" id="btn-RemoveUser" onclick="Removeuser(@item.ID)" data-target="#exampleModal">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                        </svg>
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+    @Html.PagedListPager(Model, pagina => Url.Action("Admin", new { keyword = filtro, pagina }))
+</div>
+
+<script>
+    function Removeuser(id, nome, email) {
+        let user = { id: id, nome: nome, email: email }
+
+        $.post('@Url.Action("RemoveUser","Home")', user, function (d) {
+
+            if (d == "ok") {
+                $('#modalMsg').html("Usuario removido");
+
+                $('#btn-modal').click(function () {
+                    window.location.reload();
+                });
+                //$('#exampleModal').modal('hide');
+            }
+            else {
+                $('#modalMsg').html("Não foi possível remover o usuário.");
+            }
+
+        });
+    }
+
+</script>

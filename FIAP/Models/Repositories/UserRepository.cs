@@ -29,6 +29,11 @@ namespace FIAP.Models.Repositories
             return _context.Usuarios;
         }
 
+        public IEnumerable<UserModel> GetUsersByEmail(string email)
+        {
+            return _context.Usuarios.Where(x => x.EMAIL.Contains(email));
+        }
+
         public UserModel GetUsersById(int id)
         {
             return _context.Usuarios.FirstOrDefault(x => x.ID.Equals(id));
