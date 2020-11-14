@@ -1,6 +1,10 @@
+using FIAP.Models.Data;
+using FIAP.Models.Data.UnityOfWork;
+using FIAP.Models.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +27,9 @@ namespace FIAP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options => options.UseSqlServer("workstation id=danilodev.mssql.somee.com;packet size=4096;user id=danilosoad_SQLLogin_1;pwd=h743c16619;data source=danilodev.mssql.somee.com;persist security info=False;initial catalog=danilodev"));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddControllersWithViews();
         }
 

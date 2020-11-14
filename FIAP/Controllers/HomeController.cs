@@ -1,4 +1,6 @@
 ﻿using FIAP.Models;
+using FIAP.Models.Data.UnityOfWork;
+using FIAP.Models.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,10 +14,14 @@ namespace FIAP.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnityOfWork _uow;
+        private readonly IUserRepository _repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnityOfWork uow, IUserRepository repo)
         {
             _logger = logger;
+            _uow = uow;
+            _repo = repo;
         }
 
         public IActionResult Index()
