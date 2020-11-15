@@ -1,6 +1,15 @@
-﻿<link href="~/css/styles.css" rel="stylesheet" />
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    var session = HttpContextAccessor.HttpContext.Session.GetString("isAdmin");
+}
+
+<link href="~/css/styles.css" rel="stylesheet" />
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/js/site.js"></script>
+<script src="~/js/jquery.blockUI.js"></script>
+
 <body id="page-top">
     <section class="page-section bg-primary text-white mb-0" id="service">
         <div class="container">
@@ -14,8 +23,8 @@
             </div>
             <!-- About Section Content-->
             <div class="row">
-                <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+                <div class="col-lg-4 ml-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
+                <div class="col-lg-4 mr-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
             </div>
         </div>
     </section>
@@ -32,8 +41,8 @@
             </div>
             <!-- About Section Content-->
             <div class="row">
-                <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+                <div class="col-lg-4 ml-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
+                <div class="col-lg-4 mr-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
             </div>
             <!-- About Section Button-->
         </div>
@@ -51,8 +60,8 @@
             </div>
             <!-- About Section Content-->
             <div class="row">
-                <div class="col-lg-4 ml-auto"><p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download includes the complete source files including HTML, CSS, and JavaScript as well as optional SASS stylesheets for easy customization.</p></div>
-                <div class="col-lg-4 mr-auto"><p class="lead">You can create your own custom avatar for the masthead, change the icon in the dividers, and add your email address to the contact form to make it fully functional!</p></div>
+                <div class="col-lg-4 ml-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
+                <div class="col-lg-4 mr-auto"><p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tristique tellus ipsum, eu mollis erat bibendum quis. Curabitur sodales felis ornare efficitur tincidunt. Etiam et nulla placerat, aliquet odio at, eleifend purus.</p></div>
             </div>
         </div>
     </section>
@@ -106,11 +115,11 @@
 </body>
 
 <script type="text/javascript">
+    let hasSession = '@session';
 
-    function isValidemail(email) {
-        var regex = /^(([^<>()[\]\\.,;:\s@@"]+(\.[^<>()[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return regex.test(email);
-    }
+    showLogout(hasSession);
+
+    HideMenus(true);
 
     $('#btn-Informacoes').click(function () {
         let user = {
@@ -120,10 +129,28 @@
 
         if (isValidemail($('#email').val()) && $('#nome').val() !== "") {
 
+            $.blockUI({
+                message: 'Aguarde',
+                css: {
+                    border: 'none',
+                    padding: '15px',
+                    backgroundColor: '#000',
+                    '-webkit-border-radius': '10px',
+                    '-moz-border-radius': '10px',
+                    opacity: .5,
+                    color: '#fff'
+                }
+            });
+
             $.post('@Url.Action("InsertUser")', user, function (d) {
+                //$.blockUI({ message: '<img src="@Url.Content("~/content/giphy_ajax.gif")"/> ' });
+
                 if (d == "ok") {
+
+                    $('#nome').val('')
+                    $('#email').val('')
                     $('#success').css('color', 'black');
-                    $("#success").html("Cadastrado com sucesso");
+                    $("#success").html("Cadastrado com sucesso!");
                 }
             });
 
@@ -132,8 +159,13 @@
             $("#success").html("Preencha os campos ou informe um email válido");
         }
 
+        setTimeout($.unblockUI, 2000)
+
     });
 
-
+    function isValidemail(email) {
+        var regex = /^(([^<>()[\]\\.,;:\s@@"]+(\.[^<>()[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return regex.test(email);
+    }
 
 </script>

@@ -1,7 +1,14 @@
 ﻿@model X.PagedList.IPagedList<UserModel>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @using X.PagedList.Mvc.Core;
+@using Microsoft.AspNetCore.Http;
+@{
+    var filtro = ViewBag.Keyword;
+    var session = HttpContextAccessor.HttpContext.Session.GetString("isAdmin");
+}
 
-@{var filtro = ViewBag.Keyword; }
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
 
 <h1>Area Administrativa</h1>
 
@@ -37,7 +44,8 @@
             <option value="50">50</option>
         </select>
         <br />
-        <button asp-controller="Home" asp-action="Admin" type="submit" class="btn btn-primary">
+        <button asp-controller="Home" asp-action="Admin" type="submit" class="btn btn-outline-success">
+            Pesquisar
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z" />
                 <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z" />
@@ -68,7 +76,7 @@
                 <td class="text-center">
                     @Html.DisplayFor(modelItem => item.NOME)
                 </td>
-                <td>
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.EMAIL)
                 </td>
                 <td class="text-center">
@@ -83,9 +91,17 @@
         }
     </table>
     @Html.PagedListPager(Model, pagina => Url.Action("Admin", new { keyword = filtro, pagina }))
+
 </div>
 
+
 <script>
+    HideMenus(false);
+
+    let hasSession = '@session';
+
+    showLogout(hasSession);
+
     function Removeuser(id, nome, email) {
         let user = { id: id, nome: nome, email: email }
 

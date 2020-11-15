@@ -1,4 +1,28 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function HideMenus(param) {
 
-// Write your JavaScript code.
+    if (param) {
+        $('#linkServico').show();
+        $('#linkPublico').show()
+        $('#linkPreco').show()
+        $('#linkInformacao').show()
+    } else {
+        $('#linkServico').hide();
+        $('#linkPublico').hide()
+        $('#linkPreco').hide()
+        $('#linkInformacao').hide()
+        
+    }
+}
+
+function showLogout(session) {
+
+    if (session.length > 0) {
+        $('#linkSair').show()
+    }
+    else {
+        $('#linkSair').hide()
+    }
+
+}
+
+

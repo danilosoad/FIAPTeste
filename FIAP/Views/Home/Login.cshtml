@@ -18,12 +18,12 @@
         </div>
 
         <!-- Login Form -->
-        <form>
-            <input type="text" id="login" class="fadeIn second" name="username" placeholder="Usuario">
-            <input type="text" id="password" class="fadeIn third" name="password" placeholder="Senha">
+        <form class="form-group">
+            <input type="text" id="login" class="fadeIn second form-control" name="username" placeholder="Usuario">
+            <input type="text" id="password" class="fadeIn third form-control" name="password" placeholder="Senha">
             @*<input type="submit" class="fadeIn fourth " value="Log In">*@
             <br />
-            <button asp-controller="Login" asp-action="Login" type="submit" style="margin-top:10px;" class="btn btn-primary">Enviar</button>
+            <button asp-controller="Login" asp-action="Login" type="submit" style="margin-top:10px;" class="btn btn-outline-success">Enviar</button>
             <br />
             <br />
         </form>

@@ -5,6 +5,7 @@ using FIAP.Models.Repositories;
 using FIAP.Models.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,6 +34,7 @@ namespace FIAP
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnityOfWork, UnityOfWork>();
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<PasswordService>();
             services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); });
             services.AddControllersWithViews();

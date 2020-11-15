@@ -6,7 +6,7 @@
     <title>FIAP</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/styles.css" />
+    @*<link rel="stylesheet" href="~/css/styles.css" />*@
 </head>
 <body>
     <header>
@@ -18,7 +18,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+                    <ul class="navbar-nav flex-grow-1 mr-auto">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -26,16 +26,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Administrador</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark js-scroll-trigger active" href=#service>Serviço</a>
+                            <a class="nav-link text-dark js-scroll-trigger active" id="linkServico" href=#service>Serviço</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark js-scroll-trigger active" href=#targetPublic>Público Alvo</a>
+                            <a class="nav-link text-dark js-scroll-trigger active" id="linkPublico" href=#targetPublic>Público Alvo</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark js-scroll-trigger active" href=#about>Preço</a>
+                            <a class="nav-link text-dark js-scroll-trigger active" id="linkPreco" href=#about>Preço</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark js-scroll-trigger active" href=#contact>Mais Informações</a>
+                            <a class="nav-link text-dark js-scroll-trigger active" id="linkInformacao" href=#contact>Mais Informações</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark js-scroll-trigger active btn-block" style="padding-left: 510px;" id="linkSair" asp-action="Logout" asp-controller="Login">Sair</a>
                         </li>
                     </ul>
                 </div>
@@ -55,7 +58,9 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="~/js/site.js"></script>
+    <script src="~/js/jquery.blockUI.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

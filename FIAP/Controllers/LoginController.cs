@@ -40,11 +40,18 @@ namespace FIAP.Controllers
                 {
                     TempData["User"] = JsonConvert.SerializeObject(user);
                     HttpContext.Session.SetString("isAdmin", user.ADMIN.ToString());
-                    return RedirectToAction("Admin","Home");
+                    return RedirectToAction("Admin", "Home");
                 }
             }
 
             return Content("");
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index","Home");
+        }
     }
+
 }
