@@ -30,6 +30,7 @@ namespace FIAP
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<DataContext>(options => options.UseSqlServer("Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=;Integrated Security=true;"));
             services.AddDbContext<DataContext>(options => options.UseSqlServer("workstation id=danilodev.mssql.somee.com;packet size=4096;user id=danilosoad_SQLLogin_1;pwd=h743c16619;data source=danilodev.mssql.somee.com;persist security info=False;initial catalog=danilodev"));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUnityOfWork, UnityOfWork>();

@@ -44,7 +44,7 @@ namespace FIAP.Controllers
                 }
             }
 
-            return Content("");
+            return RedirectToAction("Error","Home");
         }
 
         public IActionResult Logout()

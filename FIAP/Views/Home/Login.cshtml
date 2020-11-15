@@ -14,8 +14,8 @@
 <div class="wrapper fadeInDown">
     <div id="formContent">
         <form class="form-group">
-            <input type="text" id="login" class="fadeIn first form-control" name="username" placeholder="Usuario">
-            <input type="text" id="password" class="fadeIn second form-control" name="password" placeholder="Senha">
+            <input type="text" id="login" class="fadeIn first form-control" required="required" name="username" placeholder="Usuario">
+            <input type="text" id="password" class="fadeIn second form-control" required="required" name="password" placeholder="Senha">
             <br />
             <button asp-controller="Login" asp-action="Login" type="submit" style="margin-top:10px;" class="btn btn-outline-success">Enviar</button>
             <br />
