@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    var session = HttpContextAccessor.HttpContext.Session.GetString("isAdmin");
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -25,6 +30,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Admin">Administrador</a>
                         </li>
+                        @if(session == null){ 
                         <li class="nav-item">
                             <a class="nav-link text-dark js-scroll-trigger active" id="linkServico" href=#service>Serviço</a>
                         </li>
@@ -37,9 +43,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark js-scroll-trigger active" id="linkInformacao" href=#contact>Mais Informações</a>
                         </li>
+                        }
+                        else { 
                         <li class="nav-item">
                             <a class="nav-link text-dark js-scroll-trigger active btn-block" style="padding-left: 510px;" id="linkSair" asp-action="Logout" asp-controller="Login">Sair</a>
                         </li>
+                        }
                     </ul>
                 </div>
             </div>
